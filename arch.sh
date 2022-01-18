@@ -86,42 +86,10 @@ installer_dialog --title "Select gpu manufacturer" --menu "\nChoose an option\n"
 gpu_manufacturer="$DIALOG_RESULT"
 installer_cancel
 
-
-################################################################################
-#### Warning                                                                ####
-################################################################################
-installer_dialog --title "WARNING" --yesno "\nThis script will NUKE ${install_disk}.\nPress <Enter> to continue or <Esc> to cancel.\n" 10 60
-installer_cancel
-clear
-
 ################################################################################
 #### reset the screen                                                       ####
 ################################################################################
 reset
-
-################################################################################
-#### Nuke and set up disk partitions                                        ####
-################################################################################
-echo "Wiping disk"
-wipefs --all ${install_disk}
-
-echo "Creating GPT Partition Table"
-sgdisk ${install_disk} -o 
-
-echo "Creating EFI Partition"
-sgdisk ${install_disk} -n 1::+512MiB -t 1:ef00
-echo "Creating Swap partition"
-sgdisk ${install_disk} -n 2::32G -t 1:8200
-echo "Creating Root partition"
-sgdisk ${install_disk} -n 3::100G -t 1:8e00
-echo "Creating Home partition"
-sgdisk ${install_disk} -n 4 -t 1:8302
-
-echo "Creating filesystems and enabling swap"
-mkfs.vfat ${boot_partition}
-mkfs.btrfs -L root ${root_partition} -f
-mkfs.btrfs -L home ${home_partition} -f
-mkswap ${swap_partition}
 
 ################################################################################
 #### Install Arch                                                           ####
@@ -211,7 +179,6 @@ dialog \
 #dnsutils \
 dosfstools \
 ebtables \
-efibootmgr \
 firewalld \
 flatpak \
 $gpu_drivers \
@@ -268,17 +235,6 @@ echo "Setting up ${user_name} account"
 useradd -m ${user_name}
 echo "${user_name}:${user_password}" | chpasswd
 echo "${user_name} ALL=(ALL) ALL" >> /etc/sudoers.d/${user_name}
+bootctl install
 EOF
 
-################################################################################
-#### EFIStub                                                                ####
-################################################################################
-efibootmgr --disk ${root_partition} --create --label "Arch Linux" --loader /vmlinuz-linux --unicode "root=${root_partition} rw initrd=\\${cpu_ucode}.img initrd=\initramfs-linux.img" --verbose
-
-################################################################################
-#### The end                                                                ####
-################################################################################
-echo "Done installing a Basic Arch System."
-echo -e "\e[1;32mRebooting IN 5..4..3..2..1..\e[0m"
-sleep 5
-#reboot
