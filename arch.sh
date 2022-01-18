@@ -117,28 +117,10 @@ sgdisk ${install_disk} -n 3::100G -t 1:8e00
 echo "Creating Home partition"
 sgdisk ${install_disk} -n 4 -t 1:8302
 
-echo "Format EFI partition"
-mkfs.vfat ${boot_partition}
-
-#if [[ ! -z $encryption_passphrase ]]; then
-#    echo "Setting up encryption"
-#    printf "%s" "$encryption_passphrase" | cryptsetup luksFormat ${root_partition}
-#    printf "%s" "$encryption_passphrase" | cryptsetup luksOpen ${root_partition} archlinux
-#    mkinitcpio_hooks="encrypt lvm2"
-#    lvm_volume="${encrypt_partition}"
-#else
-#    exit 0
-#fi
-
-#echo "Setting up LVM"
-#vgcreate vg1 $lvm_volume
-#lvcreate -L 60G vg1 -n root
-#lvcreate -l 100%FREE vg1 -n home
-
 echo "Creating filesystems and enabling swap"
 mkfs.vfat ${boot_partition}
-mkfs.btrfs -L root ${root_partition}
-mkfs.btrfs -L home ${home_partition}
+mkfs.btrfs -L root ${root_partition} -f
+mkfs.btrfs -L home ${home_partition} -f
 mkswap ${swap_partition}
 
 ################################################################################
@@ -245,7 +227,6 @@ networkmanager \
 nfs-utils \
 nss-mdns \
 #ntfs-3g \
-openbsd-netcat \
 openssh \
 pipewire \
 pipewire-alsa \
@@ -263,6 +244,9 @@ wpa_supplicant \
 xdg-user-dirs \
 xdg-utils \
 wireguard-tools \
+dosfstools \
+inetutils \
+openbsd-netcat \
 snapper \
 snap-pac \
 snap-sync \
@@ -296,5 +280,5 @@ efibootmgr --disk ${root_partition} --create --label "Arch Linux" --loader /vmli
 ################################################################################
 echo "Done installing a Basic Arch System."
 echo -e "\e[1;32mRebooting IN 5..4..3..2..1..\e[0m"
-#sleep 5
+sleep 5
 #reboot
