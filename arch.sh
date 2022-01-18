@@ -151,7 +151,7 @@ mkdir /mnt/boot
 mount ${boot_partition} /mnt/boot
 
 
-yes '' | pacstrap -i /mnt base linux linux-firmware git vim $cpu_ucode lvm2
+yes '' | pacstrap -i /mnt base linux linux-firmware btrfs-progs git vim $cpu_ucode lvm2  
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
@@ -178,7 +178,8 @@ echo "Disabling annoying pc speaker"
 echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 
 echo "Generating initramfs"
-sed -i "s/^HOOKS.*/HOOKS=\(base udev autodetect modconf block keyboard ${mkinitcpio_hooks} filesystems keyboard fsck btrfs\)/" /etc/mkinitcpio.conf
+sed -i "s/^HOOKS.*/HOOKS=\(base udev autodetect modconf block keyboard ${mkinitcpio_hooks} filesystems keyboard fsck\)/" /etc/mkinitcpio.conf
+sed -i "s/^BINARIES.*/BINARIES=\(btrfs\)/" /etc/mkinitcpio.conf
 
 mkinitcpio -g /boot/initramfs-linux.img -k $kernel_version
 
@@ -219,7 +220,6 @@ alsa-utils \
 avahi \
 base-devel \
 bash-completion \
-btrfs-progs \
 bees \
 bluez \
 bluez-utils \
