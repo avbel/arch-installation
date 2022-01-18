@@ -129,19 +129,21 @@ mkfs.vfat ${boot_partition}
 #lvcreate -l 100%FREE vg1 -n home
 
 echo "Creating filesystems and enabling swap"
-mkfs.vfat /dev/nvme0n1p1
-mkfs.btrfs -L root /dev/nvme0n1p3
-mkfs.btrfs -L home /dev/nvme0n1p4
-mkswap /dev/nvme0n1p2
+mkfs.vfat ${boot_partition}
+mkfs.btrfs -L root ${root_partition}
+mkfs.btrfs -L home ${home_partition}
+mkswap ${swap_partition}
 
 ################################################################################
 #### Install Arch                                                           ####
 ################################################################################
-mount /dev/nvme0n1p3 /mnt
+mount ${root_partition} /mnt
 mkdir /mnt/home
-mount /dev/nvme0n1p4 /mnt/home
+mount ${home_partition} /mnt/home
 mkdir /mnt/boot
-mount /dev/nvme0n1p1 /mnt/boot
+mount ${boot_partition} /mnt/boot
+
+exit 0
 
 yes '' | pacstrap -i /mnt base linux linux-firmware git vim $cpu_ucode lvm2
 
