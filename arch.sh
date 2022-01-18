@@ -143,7 +143,6 @@ mount ${home_partition} /mnt/home
 mkdir /mnt/boot
 mount ${boot_partition} /mnt/boot
 
-exit 0
 
 yes '' | pacstrap -i /mnt base linux linux-firmware git vim $cpu_ucode lvm2
 

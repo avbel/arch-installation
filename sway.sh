@@ -106,7 +106,6 @@ arc-gtk-theme-git \
 celluloid \
 clipman \
 #gammastep \
-git \
 #gitflow-avh \
 grim \
 #intellij-idea-ultimate-edition \
