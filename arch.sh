@@ -91,9 +91,16 @@ installer_cancel
 ################################################################################
 reset
 
+
 ################################################################################
 #### Install Arch                                                           ####
 ################################################################################
+echo "Creating filesystems and enabling swap"
+mkfs.vfat ${boot_partition}
+mkfs.btrfs -L root ${root_partition} -f
+mkfs.btrfs -L home ${home_partition} -f
+mkswap ${swap_partition}
+
 mount ${root_partition} /mnt
 mkdir /mnt/home
 mount ${home_partition} /mnt/home
