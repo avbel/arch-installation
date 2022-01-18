@@ -182,8 +182,6 @@ echo "Enable Colors, Parallel Downloads and Multilib in /etc/pacman.conf"
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 sed -i '/Color/s/^#//g' /etc/pacman.conf
 sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf
-echo [home-thaodan] >> /etc/pacman.conf
-echo Server = https://thaodan.de/public/archlinux/home-thaodan/x86_64/ >> /etc/pacman.conf
 
 
 echo "Updating pacman"
@@ -221,7 +219,7 @@ bluez-utils \
 cups \
 dialog \
 #dnsmasq \
-dnsutils \
+#dnsutils \
 dosfstools \
 ebtables \
 efibootmgr \
@@ -257,8 +255,6 @@ tlp \
 wpa_supplicant \
 xdg-user-dirs \
 xdg-utils \
-linux-pf \
-ksmbd-tools \
 wireguard-tools \
 snapper \
 snap-pac \
@@ -293,5 +289,5 @@ efibootmgr --disk ${root_partition} --create --label "Arch Linux" --loader /vmli
 ################################################################################
 echo "Done installing a Basic Arch System."
 echo -e "\e[1;32mRebooting IN 5..4..3..2..1..\e[0m"
-sleep 5
-reboot
+#sleep 5
+#reboot
