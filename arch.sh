@@ -184,8 +184,6 @@ cups \
 dialog \
 #dnsmasq \
 #dnsutils \
-dosfstools \
-ebtables \
 firewalld \
 flatpak \
 $gpu_drivers \
@@ -196,9 +194,6 @@ inetutils \
 ipset \
 iptables-nft \
 #linux-headers \
-network-manager-applet \
-networkmanager \
-nfs-utils \
 nss-mdns \
 #ntfs-3g \
 openssh \
@@ -218,12 +213,6 @@ wpa_supplicant \
 xdg-user-dirs \
 xdg-utils \
 wireguard-tools \
-dosfstools \
-inetutils \
-openbsd-netcat \
-snapper \
-snap-pac \
-snap-sync \
 arch-chroot /mnt /bin/bash <<EOF
 
 timedatectl set-ntp true
