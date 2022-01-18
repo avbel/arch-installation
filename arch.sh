@@ -3,11 +3,18 @@
 ################################################################################
 #### Disk variables (todo menu prompt to select a specific disk             ####
 ################################################################################
-install_disk=/dev/nvme0n1
-boot_partition=/dev/nvme0n1p1
-swap_partition=/dev/nvme0n1p2
-root_partition=/dev/nvme0n1p3
-home_partition=/dev/nvme0n1p4
+install_disk=/dev/sda
+boot_partition=/dev/sda1
+swap_partition=/dev/sda2
+root_partition=/dev/sda3
+home_partition=/dev/sda4
+#install_disk=/dev/nvme0n1
+#boot_partition=/dev/nvme0n1p1
+#swap_partition=/dev/nvme0n1p2
+#root_partition=/dev/nvme0n1p3
+#home_partition=/dev/nvme0n1p4
+
+
 #encrypt_partition=/dev/mapper/archlinux
 
 ################################################################################
