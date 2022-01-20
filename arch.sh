@@ -13,7 +13,7 @@ home_partition=/dev/sda4
 #swap_partition=/dev/nvme0n1p2
 #root_partition=/dev/nvme0n1p3
 #home_partition=/dev/nvme0n1p4
-user_name = andrey
+user_name=andrey
 
 
 kernel_version=$( ls /mnt/usr/lib/modules )
@@ -44,6 +44,8 @@ acpi_call \
 acpid \
 alsa-utils \
 avahi \
+vim \
+git \
 #base-devel \
 bash-completion \
 bees \
@@ -88,5 +90,4 @@ systemctl enable acpid
 
 echo "Setting up ${user_name} account"
 echo "${user_name} ALL=(ALL) ALL" >> /etc/sudoers.d/${user_name}
-EOF
 

@@ -1,12 +1,8 @@
 #!/bin/bash
-
 ################################################################################
 #### Mirrors and Pacman.conf configuration                                  ####
 ################################################################################
 MIRRORCOUNTRY="Germany"
-
-sudo timedatectl set-ntp true
-sudo hwclock --systohc
 
 echo "Retrieve and filter the latest Pacman mirror list for ${MIRRORCOUNTRY}"
 sudo reflector -c $MIRRORCOUNTRY -a 12 --sort rate --save /etc/pacman.d/mirrorlist
@@ -19,14 +15,6 @@ sudo reflector -c $MIRRORCOUNTRY -a 12 --sort rate --save /etc/pacman.d/mirrorli
 ################################################################################
 #### Pacman packages                                                        ####
 ################################################################################
-echo "Enable Colors, Parallel Downloads and Multilib in /etc/pacman.conf"
-sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-sudo sed -i '/Color/s/^#//g' /etc/pacman.conf
-sudo sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf
-
-echo "Updating pacman"
-sudo pacman -Syu
-
 echo "Installing Sway Desktop Environment"
 sudo pacman -S \
 alacritty \
@@ -91,10 +79,10 @@ glances
 #### Paru aur package manager installation                                  ####
 ################################################################################
 echo "Installing Paru Aur package manager"
-git clone https://aur.archlinux.org/paru $HOME/paru
-cd ~/paru
-makepkg -si ~/paru
-rm -rf ~/paru
+git clone https://aur.archlinux.org/paru /tmp/paru
+cd /tmp/paru
+makepkg -si /tmp/paru
+rm -rf /tmp/paru
 
 ################################################################################
 #### AUR Packages                                                           ####
