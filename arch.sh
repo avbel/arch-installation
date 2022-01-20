@@ -83,11 +83,6 @@ terminus-font \
 xdg-user-dirs \
 xdg-utils \
 arch-chroot /mnt /bin/bash <<EOF
-
-timedatectl set-ntp true
-hwclock --systohc
-
-systemctl enable NetworkManager 
 systemctl enable cups.service
 systemctl enable sshd
 systemctl enable avahi-daemon
@@ -97,7 +92,6 @@ systemctl enable firewalld
 systemctl enable acpid
 
 echo "Setting up ${user_name} account"
-useradd -m ${user_name}
 echo "${user_name} ALL=(ALL) ALL" >> /etc/sudoers.d/${user_name}
 EOF
 
