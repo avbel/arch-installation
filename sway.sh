@@ -159,6 +159,7 @@ extramaus \
 qt5-styleplugins \
 qt6gtk2 \
 ksmbd-tools \
+linux-pf \
 
 ################################################################################
 #### Enabling Docker                                                        ####
