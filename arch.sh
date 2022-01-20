@@ -20,9 +20,6 @@ kernel_version=$( ls /mnt/usr/lib/modules )
 
 arch-chroot /mnt /bin/bash <<EOF
 
-echo "Setting time zone"
-ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-
 echo "Disabling annoying pc speaker"
 echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 
