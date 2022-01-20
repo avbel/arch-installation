@@ -18,8 +18,6 @@ user_name = andrey
 
 kernel_version=$( ls /mnt/usr/lib/modules )
 
-arch-chroot /mnt /bin/bash <<EOF
-
 echo "Disabling annoying pc speaker"
 echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 
@@ -36,12 +34,11 @@ sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf
 
 echo "Updating pacman"
 pacman -Syuu
-EOF
 
 ################################################################################
 #### Installing basic packages                                              ####
 ################################################################################
-arch-chroot /mnt pacman -S \
+pacman -S \
 acpi \
 acpi_call \
 acpid \
@@ -78,8 +75,9 @@ smbclient \
 sof-firmware \
 terminus-font \
 xdg-user-dirs \
-xdg-utils \
-arch-chroot /mnt /bin/bash <<EOF
+xdg-utils 
+
+echo "Enabling services"
 systemctl enable cups.service
 systemctl enable sshd
 systemctl enable avahi-daemon
