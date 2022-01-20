@@ -75,14 +75,7 @@ diffuse \
 bat \
 glances 
 
-################################################################################
-#### Paru aur package manager installation                                  ####
-################################################################################
-echo "Installing Paru Aur package manager"
-git clone https://aur.archlinux.org/paru /tmp/paru
-cd /tmp/paru
-makepkg -si /tmp/paru
-rm -rf /tmp/paru
+
 
 ################################################################################
 #### AUR Packages                                                           ####
@@ -197,7 +190,3 @@ curl \
 echo "Switch to and set ZSH as default"
 chsh -s /usr/bin/zsh
 
-echo "Reboot and start Sway in:"
-echo -e "\e[1;32m5..4..3..2..1..\e[0m"
-sleep 5
-sudo reboot

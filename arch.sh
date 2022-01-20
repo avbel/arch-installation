@@ -15,6 +15,8 @@ home_partition=/dev/sda4
 #home_partition=/dev/nvme0n1p4
 user_name=andrey
 
+MIRRORCOUNTRY="Germany"
+
 
 kernel_version=$( ls /mnt/usr/lib/modules )
 
@@ -31,6 +33,8 @@ sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 sed -i '/Color/s/^#//g' /etc/pacman.conf
 sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf
 
+echo "Retrieve and filter the latest Pacman mirror list for ${MIRRORCOUNTRY}"
+sudo reflector -c $MIRRORCOUNTRY -a 12 --sort rate --save /etc/pacman.d/mirrorlist
 
 echo "Updating pacman"
 pacman -Syuu
@@ -78,6 +82,15 @@ sof-firmware \
 terminus-font \
 xdg-user-dirs \
 xdg-utils 
+
+################################################################################
+#### Paru aur package manager installation                                  ####
+################################################################################
+echo "Installing Paru Aur package manager"
+git clone https://aur.archlinux.org/paru /tmp/paru
+cd /tmp/paru
+makepkg -si /tmp/paru
+rm -rf /tmp/paru
 
 echo "Enabling services"
 systemctl enable cups.service
